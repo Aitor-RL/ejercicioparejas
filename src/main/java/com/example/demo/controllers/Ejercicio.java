@@ -1,9 +1,9 @@
 package com.example.demo.controllers;
 
-import java.util.ArrayList;
 
-import com.example.demo.models.Traducir;
-import com.example.demo.services.TraductorService;
+
+import com.example.demo.models.Translate;
+import com.example.demo.services.TranslatorService;
 
 //import com.example.demo.models.Data;
 
@@ -11,10 +11,12 @@ import com.example.demo.services.TraductorService;
 //import com.example.demo.services.DataBDService;
 import com.example.demo.utils.Utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RestController;
+
 
 //import java.io.File;
 
@@ -22,13 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Ejercicio {
 
+
+   
+    @Autowired
+    TranslatorService translatorService;
+  
    
 
 
     // http://localhost:8080/
     @GetMapping("/")
     public String greet() {
-        return "Bienvenido al servidor backend";
+        return "Bienvenido al servidor backend de Zoel y Aitor";
     }
 
     // http://localhost:8080/contar/ana
@@ -38,20 +45,10 @@ public class Ejercicio {
         return contarLetras;
     }
     
-    /*@GetMapping("/listarDatos")
-   public String jokeList(){
-        ArrayList<Data> datos = DataBDService.listDatos();
-        String listado = "";
-        for(Data data: datos){
-            listado += Data.getDato();
-            
-            listado += "<br/>";
-        }
-        return listado;
-   }
-*/
+  
 
 
+ 
 
 
 /*4- Cuando el cliente acceda a la dirección:
@@ -64,21 +61,13 @@ public String darVuelta(@PathVariable String name) {
 }
 
 
-/*5-
-Cuando un cliente acceda a la dirección:
-http://localhost:8080/traduce/Hola que tal*/
+/*5-*/
+ // http://localhost:8080/traduce/????
+ @GetMapping("/traduce/{frase}")
+ public String getTranslation(@PathVariable String frase){
+     Translate t = translatorService.translateMetod(frase);
 
-
-//http://localhost:8080/traducir/{name}
-@GetMapping("/traducir/{name}")
-public String traducirIngles(@PathVariable String frase){
-    String traduccion ="";
-    Traducir c = TraductorService.traducirFrase(frase);
-
-    traduccion = "La frase" + frase + " = " + c +".";
-
-    return traduccion;
-   
+     return "La palabra en ingles es: "+t.responseData.translatedText;
+ }
 }
 
-}

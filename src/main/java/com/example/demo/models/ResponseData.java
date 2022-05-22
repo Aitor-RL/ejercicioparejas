@@ -1,9 +1,7 @@
 package com.example.demo.models;
+//import java.util.ArrayList;
 
 public class ResponseData {
-    String translatedText ;
-
-    public static Traducir getForObject(String url, Class<Traducir> class1) {
-        return null;
-    }
+   public String translatedText;
+   public double match;
 }
